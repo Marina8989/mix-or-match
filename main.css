@@ -1,0 +1,12 @@
+body{
+    background-color: black;
+    color: white;
+}
+.grid{
+    
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 10px;
+    justify-content: center;  
+}
+
