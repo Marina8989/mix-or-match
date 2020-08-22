@@ -56,6 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
    const grid = document.querySelector('.grid');
    const resultDisplay = document.querySelector('#result');
+   const restartBtn = document.createElement('button');
+
+   restartBtn.textContent = "Restart";
+  
 
    // keep track of cards
     let cardsChosen = [];
@@ -102,11 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDisplay.textContent = cardsWon.length;
          if(cardsWon.length === cardArray.length/2) {
            resultDisplay.textContent = 'You found them all!';
-         }
+         } 
     }
-
-
-
+     
      //flip card
     function flipCard() {
       let cardId = this.getAttribute('data-id');
@@ -118,5 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
        }
     }
     
+     restartBtn.addEventListener("click", function () {
+       console.log("restarted");
+       cardArray.sort(() => 0.5 - Math.random());
+
+       cardsChosen = [];
+       cardsChosenId = [];
+       resultDisplay.textContent = cardsWon.length;
+       
+     });
+    document.body.append(restartBtn);
    createBoard();
+
 })
