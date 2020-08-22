@@ -57,10 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
      const grid = document.querySelector(".grid");
      const resultDisplay = document.querySelector("#result");
      const restartBtn = document.createElement("button");
-
      restartBtn.textContent = "Restart";
 
-    
      //randomize the images each time the page loads
      cardArray.sort(() => 0.5 - Math.random());
 
@@ -68,34 +66,29 @@ document.addEventListener('DOMContentLoaded', () => {
      let cardsChosen = [];
      let cardsChosenId = [];
      let cardsWon = [];
+     
+    function itemAttr(item, index) {
+      item.setAttribute("src", "img/cover.jpg");
+      item.setAttribute("data-id", index);
+      item.style.width = "150px";
+      item.style.height = "200px";
+      item.addEventListener("click", flipCard);
+    }
 
      // create board and elements, attach them to grid
      function createBoard() {
        for (let i = 0; i < cardArray.length; i++) {
          let card = document.createElement("img");
-         card.setAttribute("src", "img/cover.jpg");
-         card.setAttribute("data-id", i);
-         card.style.width = "150px";
-         card.style.height = "200px";
-         card.addEventListener("click", flipCard);
-
+         itemAttr(card, i);
+         //restart everything
          restartBtn.addEventListener("click", function () {
-           console.log("restarted");
+           cardsWon = [];
            cardArray.sort(() => 0.5 - Math.random());
-           card.setAttribute("src", "img/cover.jpg");
-           card.setAttribute("data-id", i);
-           card.style.width = "150px";
-           card.style.height = "200px";
-           card.addEventListener("click", flipCard);
+           itemAttr(card, i);
          });
-
-
          grid.appendChild(card);
-       }
-        
+       } 
      }
-
-     createBoard();
 
      //check for matches
      function checkForMatch() {
@@ -117,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
        } else {
          cards[optionOneId].setAttribute("src", "img/cover.jpg");
          cards[optionTwoId].setAttribute("src", "img/cover.jpg");
-         // alert('Sorry, try again');
        }
        cardsChosen = [];
        cardsChosenId = [];
@@ -137,9 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
          setTimeout(checkForMatch, 500);
        }
      }
-      
-     
-
+      createBoard();
      document.body.append(restartBtn);
 })
 
