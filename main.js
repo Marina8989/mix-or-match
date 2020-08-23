@@ -51,8 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             img: 'img/yellow.jpg'
         }
     ]
-
-
+      
 
      const grid = document.querySelector(".grid");
      const resultDisplay = document.querySelector("#result");
@@ -73,6 +72,26 @@ document.addEventListener('DOMContentLoaded', () => {
       item.style.width = "150px";
       item.style.height = "200px";
       item.addEventListener("click", flipCard);
+
+   let count = 5;
+     let x = setInterval(() => {
+          count--;
+          console.log(count);
+          if(count === 0){
+              console.log('less than 0');
+              clearInterval(x);
+
+              item.setAttribute("src", "img/cover.jpg");
+              item.setAttribute("data-id", index);
+              item.style.width = "150px";
+              item.style.height = "200px";
+              item.addEventListener("click", flipCard);
+
+              cardArray.sort(() => 0.5 - Math.random());
+              cardsWon = [];
+          }
+      }, 1000);
+
     }
 
      // create board and elements, attach them to grid
@@ -80,12 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
        for (let i = 0; i < cardArray.length; i++) {
          let card = document.createElement("img");
          itemAttr(card, i);
+
          //restart everything
          restartBtn.addEventListener("click", function () {
            cardsWon = [];
            cardArray.sort(() => 0.5 - Math.random());
            itemAttr(card, i);
          });
+     
          grid.appendChild(card);
        } 
      }
