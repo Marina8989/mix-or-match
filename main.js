@@ -56,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
      const grid = document.querySelector(".grid");
      const resultDisplay = document.querySelector("#result");
      const restartBtn = document.createElement("button");
+     const timer = document.createElement('h4');
+     const h3 = document.querySelector('h3');
+     
      restartBtn.textContent = "Restart";
 
      //randomize the images each time the page loads
@@ -73,22 +76,28 @@ document.addEventListener('DOMContentLoaded', () => {
       item.style.height = "200px";
       item.addEventListener("click", flipCard);
 
-   let count = 5;
+   let count = 10;
+   timer.textContent = `Timer: ${count}`;
+    h3.append(timer);
      let x = setInterval(() => {
-          count--;
+         timer.textContent = `Timer: ${count--}`;
           console.log(count);
           if(count === 0){
               console.log('less than 0');
               clearInterval(x);
+             timer.textContent = `Time's UP! Try again!`;
+              
+                 setTimeout(() => {
+                     item.setAttribute("src", "img/cover.jpg");
+                     item.setAttribute("data-id", index);
+                     item.style.width = "150px";
+                     item.style.height = "200px";
+                     item.addEventListener("click", flipCard);
 
-              item.setAttribute("src", "img/cover.jpg");
-              item.setAttribute("data-id", index);
-              item.style.width = "150px";
-              item.style.height = "200px";
-              item.addEventListener("click", flipCard);
-
-              cardArray.sort(() => 0.5 - Math.random());
-              cardsWon = [];
+                     cardArray.sort(() => 0.5 - Math.random());
+                     cardsWon = [];
+                     itemAttr(item, index);
+                 }, 3000);
           }
       }, 1000);
 
